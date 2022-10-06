@@ -8,12 +8,29 @@ public class StackUsingArray {
 		data = new int[10];
 		topIndex = -1;
 	}
+	
+	public StackUsingArray(int size) {
+		data = new int[size];
+		topIndex = -1;
+	}
 
-	public void push(int elem) throws StackFullException {
+	public void push(int elem) {
 		if(topIndex == data.length -1) {
-			throw new StackFullException();
+			//throw new StackFullException();
+			doubleCapacity();
 		}
 		data[++topIndex] = elem;
+	}
+
+	private void doubleCapacity() {
+		//System.out.println("Double Capacity Called");
+		int temp[] = data;
+		
+		data = new int[2 * data.length];
+		
+		for (int i = 0; i < temp.length; i++) {
+			data[i] = temp[i];
+		}
 	}
 
 	public int top() throws StackEmptyException {
