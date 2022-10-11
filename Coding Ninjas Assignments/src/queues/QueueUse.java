@@ -5,7 +5,7 @@ public class QueueUse {
 	public static void main(String[] args) throws QueueFullException, QueueEmptyException {
 		int arr[] = {10,20,30,40,50,60};
 		
-		QueueUsingArray queue = new QueueUsingArray(arr.length);
+		QueueUsingArray queue = new QueueUsingArray(2);
 		System.out.println("Enqueue Operation");
 		for (int i = 0; i < arr.length; i++) {
 			queue.enqueue(arr[i]);
