@@ -1,6 +1,19 @@
 package trees;
 
 public class BinaryTreeUse {
+	
+	
+	public static void printTree(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+		
+		System.out.println(root.data);
+		
+		printTree(root.left);
+		printTree(root.right);
+		
+	}
 
 	public static void main(String[] args) {
 		
@@ -13,12 +26,14 @@ public class BinaryTreeUse {
 		root.left = rootLeft;
 		root.right = rootRight;
 		
-		BinaryTreeNode<Integer> twoRight = new BinaryTreeNode<Integer>(4);
+		printTree(root);
 		
-		BinaryTreeNode<Integer> threeLeft = new BinaryTreeNode<Integer>(5);
-		
-		rootLeft.right = twoRight;
-		rootRight.left = threeLeft;
+//		BinaryTreeNode<Integer> twoRight = new BinaryTreeNode<Integer>(4);
+//		
+//		BinaryTreeNode<Integer> threeLeft = new BinaryTreeNode<Integer>(5);
+//		
+//		rootLeft.right = twoRight;
+//		rootRight.left = threeLeft;
 
 	}
 
