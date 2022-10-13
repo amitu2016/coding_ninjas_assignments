@@ -4,6 +4,41 @@ import java.util.Scanner;
 
 public class BinaryTreeUse {
 	
+public static BinaryTreeNode<Integer> takeTreeInputBetter(boolean isRoot, int parentData, boolean isLeft) {
+		
+	if (isRoot) {
+		System.out.println("Enter Root Data:");
+	}else {
+		if (isLeft) {
+			System.out.println("Enter left child of "+parentData);
+		}else {
+			System.out.println("Enter right child of "+parentData);
+		}
+	}
+	
+	
+	
+	
+	
+		Scanner sc = new Scanner(System.in);
+		Integer rootData = sc.nextInt();
+		
+		
+		if (rootData == -1) {
+			return null;
+		}
+		
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootData);
+		
+		BinaryTreeNode<Integer> leftChild = takeTreeInputBetter(false, rootData, true);
+	    BinaryTreeNode<Integer> rightChild = takeTreeInputBetter(false, rootData, false);
+	    
+	    root.left = leftChild;
+	    root.right = rightChild;
+		
+		return root;
+	} 
+	
 	public static BinaryTreeNode<Integer> takeTreeInput() {
 		
 		System.out.println("Enter Root Data :");
@@ -60,6 +95,27 @@ public class BinaryTreeUse {
 		printTree(root.right);
 		
 	}
+	
+	public static int numNodes(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return 0;
+		}
+		
+		int leftNodeCount = numNodes(root.left);
+		int rightNodeCount = numNodes(root.right);
+		return 1 + leftNodeCount + rightNodeCount;
+		
+	}
+	
+	public static int getSum(BinaryTreeNode<Integer> root) {
+		if(root == null) {
+			return 0;
+		}
+		
+		int leftNodeSum = getSum(root.left);
+		int rightNodeSum = getSum(root.right);
+		return root.data + leftNodeSum + rightNodeSum;
+	}
 
 	public static void main(String[] args) {
 //		
@@ -83,9 +139,13 @@ public class BinaryTreeUse {
 //		
 //		printTreeDetailed(root);
 		
-		BinaryTreeNode<Integer> root = takeTreeInput();
+		BinaryTreeNode<Integer> root = takeTreeInputBetter(true, 0, true);
 		
 		printTreeDetailed(root);
+		
+		System.out.println("No. of Nodes: "+numNodes(root));
+		
+		System.out.println("Sum = "+getSum(root));
 
 	}
 
