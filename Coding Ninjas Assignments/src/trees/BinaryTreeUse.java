@@ -116,6 +116,39 @@ public static BinaryTreeNode<Integer> takeTreeInputBetter(boolean isRoot, int pa
 		int rightNodeSum = getSum(root.right);
 		return root.data + leftNodeSum + rightNodeSum;
 	}
+	
+	public static void preOrder(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+		
+		System.out.println(root.data);
+		
+		preOrder(root.left);
+		preOrder(root.right);
+	}
+	
+	public static void postOrder(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+			
+		postOrder(root.left);
+		postOrder(root.right);
+		System.out.println(root.data);
+	}
+	
+	public static void InOrder(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+		
+		InOrder(root.left);
+		System.out.println(root.data);
+		InOrder(root.right);	
+	}
+	
+	
 
 	public static void main(String[] args) {
 //		
@@ -140,12 +173,20 @@ public static BinaryTreeNode<Integer> takeTreeInputBetter(boolean isRoot, int pa
 //		printTreeDetailed(root);
 		
 		BinaryTreeNode<Integer> root = takeTreeInputBetter(true, 0, true);
+//		
+//		printTreeDetailed(root);
+//		
+//		System.out.println("No. of Nodes: "+numNodes(root));
+//		
+//		System.out.println("Sum = "+getSum(root));
+		System.out.println("Inorder Traversal:");
+		InOrder(root);
 		
-		printTreeDetailed(root);
+		System.out.println("Preorder Traversal:");
+		preOrder(root);
 		
-		System.out.println("No. of Nodes: "+numNodes(root));
-		
-		System.out.println("Sum = "+getSum(root));
+		System.out.println("Postorder Traversal:");
+		postOrder(root);
 
 	}
 
