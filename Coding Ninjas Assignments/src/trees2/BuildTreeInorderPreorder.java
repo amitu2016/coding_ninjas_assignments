@@ -3,35 +3,55 @@ package trees2;
 public class BuildTreeInorderPreorder {
 
 	public static BinaryTreeNode<Integer> buildTree(int[] preOrder, int[] inOrder) {
-		int preOrderIndex = 0;
-		int n = preOrder.length;
-		BinaryTreeNode<Integer> ans = solve(inOrder, preOrder, preOrderIndex, 0, inOrder.length - 1, n);
-		return ans;
+		// Your code goes here
+		BinaryTreeNode<Integer> root = buildTree(preOrder, inOrder, 0, preOrder.length - 1, 0, inOrder.length - 1);
+		return root;
 
 	}
 
-	private static BinaryTreeNode<Integer> solve(int[] inOrder, int[] preOrder, int preOrderIndex, int inOrderStart,
-			int inOrderEnd, int n) {
-		if (preOrderIndex >= n || inOrderStart > inOrderEnd) {
+	public static BinaryTreeNode<Integer> buildTree(int[] preorder, int[] inorder, int siPre, int eiPre, int siIn,
+			int eiIn) {
+		// Base case - If number of elements in the pre-order is 0
+		if (siPre > eiPre) {
 			return null;
 		}
 
-		int rootData = preOrder[preOrderIndex++];
+		// Defining the root node for current recursion
+		int rootData = preorder[siPre];
 		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootData);
 
-		int position = findPosition(inOrder, rootData, n);
-		root.left = solve(inOrder, preOrder, preOrderIndex, inOrderStart, position - 1, n);
-		root.right = solve(inOrder, preOrder, preOrderIndex, position + 1, inOrderEnd, n);
-		return root;
-	}
-
-	private static int findPosition(int[] inOrder, int rootData, int n) {
-		for (int i = 0; i < n; i++) {
-			if (inOrder[i] == rootData) 
-				return i;
-			
+		// Finding root data's location in Inorder (Assuming root data exists in
+		// Inorder)
+		int rootIndexInorder = -1;
+		for (int i = siIn; i <= eiIn; i++) {
+			if (rootData == inorder[i]) {
+				rootIndexInorder = i;
+				break;
+			}
 		}
-		return -1;
+
+		// Defining index limits for Left Subtree Inorder
+		int siInLeft = siIn;
+		int eiInLeft = rootIndexInorder - 1;
+
+		// Defining the index limits for Left Subtree Preorder
+		int siPreLeft = siPre + 1;
+		int leftSubTreeLength = eiInLeft - siInLeft + 1;
+		int eiPreLeft = (siPreLeft) + (leftSubTreeLength - 1);
+
+		// Defining index limits for Right Subtree Inorder
+		int siInRight = rootIndexInorder + 1;
+		int eiInRight = eiIn;
+
+		// Defining index limits for Right Subtree Preorder
+		int siPreRight = eiPreLeft + 1;
+		int eiPreRight = eiPre;
+
+		BinaryTreeNode<Integer> leftChild = buildTree(preorder, inorder, siPreLeft, eiPreLeft, siInLeft, eiInLeft);
+		BinaryTreeNode<Integer> rightChild = buildTree(preorder, inorder, siPreRight, eiPreRight, siInRight, eiInRight);
+		root.left = leftChild;
+		root.right = rightChild;
+		return root;
 	}
 
 	public static void main(String[] args) {
