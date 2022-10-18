@@ -1,36 +1,45 @@
 package trees2;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class PrintLevelWise {
 
 	public static void printLevelWise(BinaryTreeNode<Integer> root) {
-		Queue<BinaryTreeNode<Integer>> pendingChildren = new LinkedList<>();
-
-		pendingChildren.add(root);
-
-		while (!pendingChildren.isEmpty()) {
-			BinaryTreeNode<Integer> front = pendingChildren.poll();
-
-			System.out.print(front.data + ": ");
-
-			if (front.left != null) {
-				System.out.print("L" + front.left.data+", ");
-				pendingChildren.add(front.left);
-			}else {
-				System.out.print("L" +"-1"+",");
-			}
-
-			if (front.right != null) {
-				System.out.print("R" + front.right.data);
-				pendingChildren.add(front.right);
-			}else {
-				System.out.print("R" +"-1");
-			}
-			System.out.println();
+		int h = height(root);
+		
+		for (int i = 1; i <= h; i++) {
+			printCurrentLevel(root, i);
+			System.out.print(System.lineSeparator());
 		}
+	}
 
+	private static void printCurrentLevel(BinaryTreeNode<Integer> root, int level) {
+		if (root == null) {
+			return;
+		}
+		
+		if (level == 1) {
+			System.out.print(root.data+ " ");
+		}else if(level > 1) {
+			printCurrentLevel(root.left, level -1);
+			printCurrentLevel(root.right, level - 1);
+		}
+		
+	}
+
+	private static int height(BinaryTreeNode<Integer> root) {
+		if(root == null)
+			return 0;
+		else {
+			int lheight = height(root.left);
+			int rheight = height(root.right);
+			
+			if (lheight > rheight) {
+				return lheight + 1;
+			}else {
+				return rheight + 1;
+			}
+		}
+		
+		
 	}
 
 	public static void main(String[] args) {
