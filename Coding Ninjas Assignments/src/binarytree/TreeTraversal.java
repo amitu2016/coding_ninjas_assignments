@@ -1,18 +1,38 @@
-package trees;
+package binarytree;
 
 import java.util.Scanner;
 
-public class NumberOfNodes {
-
-	public static int numNodes(BinaryTreeNode<Integer> root) {
+public class TreeTraversal {
+	
+	public static void preOrder(BinaryTreeNode<Integer> root) {
 		if (root == null) {
-			return 0;
+			return;
 		}
 		
-		int leftNodeCount = numNodes(root.left);
-		int rightNodeCount = numNodes(root.right);
-		return 1 + leftNodeCount + rightNodeCount;
+		System.out.print(root.data+" ");
 		
+		preOrder(root.left);
+		preOrder(root.right);
+	}
+	
+	public static void postOrder(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+			
+		postOrder(root.left);
+		postOrder(root.right);
+		System.out.print(root.data+" ");
+	}
+	
+	public static void InOrder(BinaryTreeNode<Integer> root) {
+		if (root == null) {
+			return;
+		}
+		
+		InOrder(root.left);
+		System.out.print(root.data+" ");
+		InOrder(root.right);	
 	}
 	
 	public static BinaryTreeNode<Integer> takeTreeInputBetter(boolean isRoot, int parentData, boolean isLeft) {
@@ -44,11 +64,20 @@ public class NumberOfNodes {
 		    root.right = rightChild;
 			
 			return root;
-		}
-	
+		} 
+
 	public static void main(String[] args) {
 		BinaryTreeNode<Integer> root = takeTreeInputBetter(true, 0, true);
-		System.out.println("Number of Nodes = "+ numNodes(root));
+		System.out.println("Preorder");
+		preOrder(root);
+		System.out.println();
+		
+		System.out.println("Postorder");
+		postOrder(root);
+		System.out.println();
+		
+		System.out.println("Inorder");
+		InOrder(root);
 	}
 
 }
