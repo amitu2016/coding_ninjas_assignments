@@ -20,7 +20,7 @@ public class CheckBST3 {
 
 	public static void main(String[] args) {
 		BinaryTreeNode<Integer> root = TakeInputLevelWise.takeInputLevelWise();
-		System.out.println(isBST(root,Integer.MAX_VALUE,Integer.MIN_VALUE));
+		System.out.println(isBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE));
 	}
 
 }
