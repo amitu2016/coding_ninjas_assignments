@@ -12,13 +12,14 @@ public class ReplaceWithLargerNodeSum {
 		}
 
 		int greaterSum = replaceWithLargerNodesSumUtil(root.right, sum);
-
+        //System.out.println("Greater Sum = "+greaterSum);
 		int temp = root.data;
-
+		//System.out.println("Temp = "+ temp);
 		root.data = root.data + greaterSum + sum;
-
+		//System.out.println("Root.data = "+root.data);
 		int leftSum = replaceWithLargerNodesSumUtil(root.left, root.data);
-
+		//System.out.println("Left Sum = "+leftSum);
+		//System.out.println("Final = "+temp + greaterSum + leftSum);
 		return temp + greaterSum + leftSum;
 	}
 
