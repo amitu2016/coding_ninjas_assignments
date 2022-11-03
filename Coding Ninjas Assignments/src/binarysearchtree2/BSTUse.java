@@ -15,11 +15,11 @@ public class BSTUse {
 
 		b.printTree();
 
-		System.out.println(b.isPresent(5));
-
-		b.deleteData(5);
-
-		System.out.println(b.isPresent(5));
+		System.out.println("is 5 present? "+b.isPresent(5));
+		System.out.println(b.size());
+		System.out.println(b.deleteData(5)); 
+		System.out.println(b.size());
+		System.out.println("is 5 present? "+b.isPresent(5));
 
 	}
 
