@@ -101,6 +101,34 @@ public class TreeUse {
 		System.out.print(root.data+" ");
 		
 	}
+	
+	public static boolean checkIfContainsX(TreeNode<Integer> root, int x){
+		if(root == null) {
+			return false;
+		}
+		
+		if(root.data == x) {
+			return true;
+		}
+		
+		for (int i = 0; i < root.children.size(); i++) {
+			boolean present = checkIfContainsX(root.children.get(i), x);
+			if(present) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+		// Write your code here
+		
+		
+		
+		
+		
+	}
 
 	public static void main(String[] args) {
 //		TreeNode<Integer> root = new TreeNode<>(4);
