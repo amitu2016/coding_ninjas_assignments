@@ -1,5 +1,6 @@
 package genericTree;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -108,6 +109,67 @@ public class TreeUse {
 			printTree(child);
 		}
 	}
+	
+	public static int getHeight(TreeNode<Integer> root){
+		 if(root == null) {
+			 return 0;
+		 }
+		 
+		 
+		 int max = 0;
+		 for (int i = 0; i < root.children.size(); i++) {
+			int childHeight = getHeight(root.children.get(i));
+			max = Math.max(max, childHeight);
+		}
+		
+		 return 1 + max;
+		 
+	}
+	
+	public static void printPostOrder(TreeNode<Integer> root){
+		if(root == null) {
+			return;
+		}
+		
+		for (int i = 0; i < root.children.size(); i++) {
+			TreeNode<Integer> child = root.children.get(i);
+			//System.out.print(root.children.get(i).data+" ");
+			printPostOrder(child);
+		}
+		
+		System.out.print(root.data+" ");
+		
+	}
+	
+	public static boolean checkIfContainsX(TreeNode<Integer> root, int x){
+		if(root == null) {
+			return false;
+		}
+		
+		if(root.data == x) {
+			return true;
+		}
+		
+		for (int i = 0; i < root.children.size(); i++) {
+			boolean present = checkIfContainsX(root.children.get(i), x);
+			if(present) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/*
+	 * public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){ // Write
+	 * your code here
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 
 	public static void main(String[] args) {
 //		TreeNode<Integer> root = new TreeNode<>(4);
@@ -124,12 +186,12 @@ public class TreeUse {
 
 		// printTree(root);
 		TreeNode<Integer> root = takeInput();
-//		printTree(root);
-//		int nodesCount = numberOfNodes(root);
-//		System.out.println(nodesCount);
-//		System.out.println(sumOfAllNode(root));
-		printLevelWise(root);
-		System.out.println(numNodeGreater(root, 3)); 
+		printTree(root);
+		int nodesCount = numberOfNodes(root);
+		System.out.println(nodesCount);
+		//System.out.println(sumOfAllNode(root));
+		//System.out.println("Height :"+getHeight(root));
+		printPostOrder(root);
 	}
 
 }
