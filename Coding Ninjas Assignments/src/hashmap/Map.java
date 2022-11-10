@@ -22,7 +22,8 @@ public class Map<K, V> {
 
 		MapNode<K, V> head = buckets.get(bucketIndex);
 
-		// If Key is already present in Bucket, just update the value corresponding to key
+		// If Key is already present in Bucket, just update the value corresponding to
+		// key
 		while (head != null) {
 			if (head.key.equals(key)) {
 				head.value = value;
@@ -44,6 +45,46 @@ public class Map<K, V> {
 		int hashCode = key.hashCode();
 		int bucketIndex = hashCode % numBuckets;
 		return bucketIndex;
+	}
+
+	public int size() {
+		return count;
+	}
+
+	public V getValue(K key) {
+		int bucketIndex = getBucketIndex(key);
+
+		MapNode<K, V> head = buckets.get(bucketIndex);
+
+		while (head != null) {
+			if (head.key.equals(key)) {
+				return head.value;
+			}
+
+			head = head.next;
+		}
+		return null;
+	}
+
+	public V removeKey(K key) {
+		int bucketIndex = getBucketIndex(key);
+
+		MapNode<K, V> head = buckets.get(bucketIndex);
+		MapNode<K, V> prev = null;
+		while (head != null) {
+			if (head.key.equals(key)) {
+
+				if (prev != null) {
+					prev.next = head.next;
+				} else {
+					buckets.set(bucketIndex, head.next);
+				}
+
+			}
+			prev = head;
+			head = head.next;
+		}
+		return null;
 	}
 
 }
