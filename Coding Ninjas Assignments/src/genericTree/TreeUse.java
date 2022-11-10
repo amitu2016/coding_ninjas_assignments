@@ -122,12 +122,34 @@ public class TreeUse {
 	}
 	
 	public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
-		// Write your code here
+		MaxSumNodeReturn ans = maxSumNodeHelper(root);
+		return ans.node;
+	}
+
+	private static MaxSumNodeReturn maxSumNodeHelper(TreeNode<Integer> root) {
+		if(root == null) {
+			MaxSumNodeReturn ans = new MaxSumNodeReturn();
+			ans.node = null;
+			ans.totalSum = 0;
+			return ans;
+		}
 		
+		MaxSumNodeReturn res = new MaxSumNodeReturn();
+		res.node = root;
+		int sum = 0;
+		for (int i = 0; i < root.children.size(); i++) {
+			sum += root.children.get(i).data; 
+		}
+		res.totalSum = root.data + sum;
 		
-		
-		
-		
+		for (int i = 0; i < root.children.size(); i++) {
+			MaxSumNodeReturn smallans = maxSumNodeHelper(root.children.get(i));
+			if(smallans.totalSum > res.totalSum) {
+				res.totalSum = smallans.totalSum;
+				res.node = smallans.node;
+			}
+		}
+		return res;
 	}
 
 	public static void main(String[] args) {
