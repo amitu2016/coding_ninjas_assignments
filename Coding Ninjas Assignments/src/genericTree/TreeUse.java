@@ -6,6 +6,45 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class TreeUse {
+	
+	
+	public static int numNodeGreater(TreeNode<Integer> root,int x){
+
+		int count = 0;
+		
+		if(root.data > x) {
+			count++;
+		}
+		
+		for (int i = 0; i < root.children.size(); i++) {
+			int childCount = numNodeGreater(root.children.get(i),x);
+			count += childCount;
+		}
+		return count;	
+
+	}
+
+	public static void printLevelWise(TreeNode<Integer> root) {
+		Queue<TreeNode<Integer>> pendingChildren = new LinkedList<>();
+		pendingChildren.add(root);
+		pendingChildren.add(null);
+
+		while (!pendingChildren.isEmpty()) {
+			TreeNode<Integer> front = pendingChildren.poll();
+			if (front != null) {
+				System.out.print(front.data+" ");
+				for (int i = 0; i < front.children.size(); i++) {
+					pendingChildren.add(front.children.get(i));
+				}
+			} else {
+				System.out.println();
+				if (!pendingChildren.isEmpty()) {
+					pendingChildren.add(null);
+				}
+			}
+		}
+
+	}
 
 	public static TreeNode<Integer> takeInput() {
 		Scanner sc = new Scanner(System.in);
@@ -18,7 +57,7 @@ public class TreeUse {
 		TreeNode<Integer> root = new TreeNode<Integer>(rootData);
 		Queue<TreeNode<Integer>> pendingNodes = new LinkedList<>();
 		pendingNodes.add(root);
-		
+
 		while (!pendingNodes.isEmpty()) {
 
 			TreeNode<Integer> front = pendingNodes.poll();
@@ -151,6 +190,7 @@ public class TreeUse {
 		}
 		return res;
 	}
+
 
 	public static void main(String[] args) {
 //		TreeNode<Integer> root = new TreeNode<>(4);
