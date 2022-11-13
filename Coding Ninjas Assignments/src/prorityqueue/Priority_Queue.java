@@ -44,7 +44,10 @@ public class Priority_Queue<T> {
 		return heap.get(0).value;
 	}
 
-	public T removeMin() {
+	public T removeMin() throws PriorityQueueException {
+		if(isEmpty()){
+            throw new PriorityQueueException();
+        }
 		// Element to be removed is present at 0th index
 		Element<T> removed = heap.get(0);
 		T ans = removed.value;
@@ -58,7 +61,7 @@ public class Priority_Queue<T> {
 		int leftChildIndex = 2 * parentIndex + 1;
 		int rightChildIndex = 2 * parentIndex - 1;
 
-		while (leftChildIndex < heap.size()) {
+		while (leftChildIndex < heap.size() && leftChildIndex != -1 && rightChildIndex != -1) {
 			int minIndex = parentIndex;
 
 			if (heap.get(leftChildIndex).priority < heap.get(minIndex).priority) {
