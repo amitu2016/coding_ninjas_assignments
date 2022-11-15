@@ -26,6 +26,7 @@ public class Trie {
 		if (child == null) {
 			child = new TrieNode(word.charAt(0));
 			root.children[childIndex] = child;
+			root.childCount ++;
 		}
 
 		//Recursively traverse the array
@@ -59,7 +60,28 @@ public class Trie {
 	}
 
 	public void remove(String word) {
+		removeHelper(root,word);
+	}
 
+	private void removeHelper(TrieNode root, String word) {
+		
+		if(word.length() == 0) {
+			root.isTerminal = false;
+			return;
+		}
+		
+		int childIndex = word.charAt(0) - 'A';
+		TrieNode child = root.children[childIndex];
+		
+		if (child == null) {
+			return;
+		}
+		
+		removeHelper(child, word.substring(1));
+		if (!child.isTerminal && child.childCount == 0) {
+			root.children[childIndex] = null;
+			root.childCount --;
+		}
 	}
 
 }
