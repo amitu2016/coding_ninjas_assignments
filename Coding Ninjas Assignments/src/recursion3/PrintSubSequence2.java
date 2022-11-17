@@ -1,3 +1,4 @@
+package recursion3;
 import java.util.Scanner;
 
 public class PrintSubSequence2 {
