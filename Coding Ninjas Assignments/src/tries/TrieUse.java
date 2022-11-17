@@ -14,7 +14,6 @@ public class TrieUse {
 		t.remove("AMIT");
 		
 		System.out.println(t.search("AMIT"));
-
 	}
 
 }
